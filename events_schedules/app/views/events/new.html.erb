@@ -1,0 +1,62 @@
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+          <%= image_tag("logo.png") %><p style="font-family:'Pacifico',cursive;font-size:28px;">Events Schedule</p></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="active">
+      <li><%= link_to "<button class=btn btn-success>Log out</button>".html_safe,log_out_path%>
+      </li>
+      <dir id="user_nav">
+      <li><p style="font-size:18px"><b>logged in as</b></p><%= current_user.email%>
+      </li>
+      </dir>
+
+    </ul>
+  </div>
+</nav>
+<%= form_for @event,url: event_create_path do |f| %>
+
+<div class="container">
+  <h2>Create event</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create New event</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+
+    <%= f.label :Enter_Event_name%>    <%= f.text_field :event %></br></br>
+    <%= f.label :Enter_Venue%>       <%= f.text_field :venue %></br></br>
+    <%= f.label :Enter_date%>       <%= f.text_field :date %></br></br>
+    <%= f.label :Enter_time %>           <%= f.text_field :time %></br></br>
+    <%= f.label :Enter_description%>    <%= day_form.text_area :hatch, size: "30x10" %></br></br>
+    <%= f.label :Enetr_invited %>     
+    <%= current_user.username%>  
+    <%= f.label :Select_invitee %> <%= f.password_field :password_confirmation %></br></br>
+    </div>
+  <%= f.submit :Submit,:class=>"btn" %>
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+<% end %>
