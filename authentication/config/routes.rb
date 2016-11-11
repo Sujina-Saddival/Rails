@@ -1,36 +1,20 @@
 Rails.application.routes.draw do
+  # get 'session/new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+  get 'sign_up' => 'users#new', as: :sign_up
+  get 'log_out' => 'sessions#destroy', as: :log_out
 
+  get 'log_in' => 'sessions#new', as: :log_in
+  root :to => "users#new"
+  resources :sessions
+  resources :users
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-  root "users#main_form"
-
-  get 'user/new' => 'users#new', as: :user_new
-
-  post 'user/create' => 'users#create', as: :user_create
-  
-  get 'user/form' => 'users#main_form', as: :main_form
-
-
-  get 'user/login' => 'sessions#new', as: :login_form
-
-  post 'user/login_form' => 'sessions#create', as: :login_create
-
-
-  get 'user/event_form' => 'events#new', as: :event_new
-
-
-  post 'user/event_create' => 'events#create', as: :event_create
-
-
-  get 'log_out' => 'events#destroy', as: :log_out
-
-
-
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

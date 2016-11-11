@@ -1,3 +1,4 @@
+
 <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
 <nav class="navbar navbar-default">
@@ -11,7 +12,7 @@
       <li><%= link_to "<button class=btn btn-success>Log out</button>".html_safe,log_out_path%>
       </li>
       <dir id="user_nav">
-      <li><p style="font-size:18px"><b>logged in as</b></p><%= current_user.email%>
+      <li><p style="font-size:18px"><b>logged in as</b></p><%= current_user.username%>
       </li>
       </dir>
 
@@ -21,7 +22,15 @@
 <%= form_for @event,url: event_create_path do |f| %>
 
 <div class="container">
+<div class="row">
+<div class="col-sm-9">
+      <dir id="user_nav">
+      <p>Event : </p>
+      </dir>
+</div>
+<div class="col-sm-3">
   <h2>Create event</h2>
+  
   <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create New event</button>
 
@@ -41,16 +50,29 @@
     <%= f.label :Enter_Venue%>       <%= f.text_field :venue %></br></br>
     <%= f.label :Enter_date%>       <%= f.text_field :date %></br></br>
     <%= f.label :Enter_time %>           <%= f.text_field :time %></br></br>
-    <%= f.label :Enter_description%>    <%= day_form.text_area :hatch, size: "30x10" %></br></br>
-    <%= f.label :Enetr_invited %>     
-    <%= current_user.username%>  
-    <%= f.label :Select_invitee %> <%= f.password_field :password_confirmation %></br></br>
+    <%= f.label :Enter_description%>    <%= f.text_area :description, size: "60x5" %></br></br>
+    <%= f.label :Invited_by %> </br>    
+    <%= current_user.username%> </br>
+     </br>
+    <%= f.label :Select_invitee %> 
+    <ul>
+    <% @name.each do |role| %>
+      <li>
+        <%= check_box_tag 'role_ids[]', role.id -%>
+        <%= h role.username -%>
+      </li>
+    <% end %>
+  </ul>
+    <%= f.label :Enter_Status%>  
+    <%= f.select :status, ['open', 'closed']%></br></br></br>
+
     </div>
-  <%= f.submit :Submit,:class=>"btn" %>
-          <p>Some text in the modal.</p>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit :Submit,:class=>"btn" %>
+          </div>
         </div>
       </div>
       
