@@ -23,15 +23,17 @@ ActiveRecord::Schema.define(version: 20161111111737) do
     t.string   "time"
     t.string   "description"
     t.string   "invited"
-    t.string   "invite"
+    t.integer  "user_id"
+    t.string   "invitee",     default: [],              array: true
     t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "invitations", force: :cascade do |t|
+    t.integer  "inviter_id"
+    t.integer  "invitee_id"
     t.integer  "event_id"
-    t.integer  "user_id"
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

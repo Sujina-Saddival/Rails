@@ -1,4 +1,4 @@
 class Invitation < ActiveRecord::Base
-	belong_to :user
-	belong_to :event
+	belongs_to :event
+	belongs_to :invitee, class_name: "User"
 end

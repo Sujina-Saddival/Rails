@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # attr_accessible :email, :password, :password_confirmation
-  has_many :invitations
-  has_many :events,through: :invitation 
+  has_many :invitations, foreign_key: :invitee_id
+  has_many :events, through: :invitations
   attr_accessor :password
   before_save :encrypt_password
   

@@ -21,16 +21,20 @@ Rails.application.routes.draw do
   post 'user/login_form' => 'sessions#create', as: :login_create
 
 
-  get 'user/event_form' => 'events#new', as: :event_new
+  get 'user/event_form/:user_id' => 'events#new', as: :event_new
 
 
-  post 'user/event_create' => 'events#create', as: :event_create
+  post 'user/event_create/:user_id' => 'events#create', as: :event_create
 
+  # patch 'user/event_edit_save' => 'events#edit_save', as: :event_edit_save
+
+  get "event/:user_id/:event_id" => "events#delete", as: :event_destroy
 
   get 'log_out' => 'events#destroy', as: :log_out
 
+  get 'edit/:user_id/:event_id' => 'events#edit', as: :event_edit
 
-
+  put "edit/:user_id/:event_id" => "events#update", as: :event_update
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

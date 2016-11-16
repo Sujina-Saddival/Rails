@@ -22,7 +22,7 @@ rules: {
 "user[firstname]": {required: true, firstname: true},
 "user[lastname]": {required: true, lastname: true},
 "user[username]": {required: true, username: true},
-"user[phone]": {required: true, phone: true,inlength: 10},
+"user[phone]": {required: true, phone: true,maxlength: 10},
 "user[email]": {required: true, email: true},
 "user[password]": {required: true, minlength: 6},
 "user[password_confirmation]": {required: true, equalTo: "#customer_password"}
