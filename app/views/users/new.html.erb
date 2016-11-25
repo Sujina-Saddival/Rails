@@ -1,0 +1,56 @@
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<nav class="navbar navbar-default">
+  <div class="container" >
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+          <%= image_tag("logo.png") %><p style="font-family:'Pacifico',cursive;font-size:28px;">Events Schedule</p></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+     
+     
+      <li class="active">
+
+      
+      <li class="active">
+      <li><%= link_to "<button class=btn btn-success>Log in</button>".html_safe,login_form_path%>
+      </li>
+      <li><%= link_to "<button class=btn btn-success>Main Page</button>".html_safe,main_form_path%>
+
+       </ul>
+      
+  </div>
+</nav>
+
+<%= form_for @user,url: user_create_path do |f| %>
+</br></br>
+  <h1>Sign Up</h1>
+
+  <div style="font-size:18px;">
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-3">
+      <%= f.label :Enter_First_name%>    <%= f.text_field :firstname,required: true%></br></br>
+    <%= f.label :Enter_Last_name%>       <%= f.text_field :lastname,:required=>true %></br></br>
+    <%= f.label :Enter_User_name%>       <%= f.text_field :username %></br></br>
+    <%= f.label :Enter_valid_Email %>           <%= f.email_field :email,:required=>true %></br></br>
+    <%= f.label :Enter_Ph_number%>    <%= f.text_field :phone,:required=>true %></br></br>
+    <%= f.label :Enter_password %>              <%= f.password_field :password,:required=>true %></br></br>
+    <%= f.label :password_confirmation %>  <%= f.password_field :password_confirmation,:required=>true %></br></br>
+  <%= f.submit :Submit,:class=>"btn" %>
+  <%= link_to "<button class=btn btn-success>Cancel</button>".html_safe,main_form_path%>
+    </div>
+  <div class="col-sm-9">
+</div>
+  </div>
+</div>
+</div>
+<% end %>

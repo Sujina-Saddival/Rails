@@ -1,0 +1,154 @@
+<div  ng-app="eventApp" ng-controller="eventController" >
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<nav class="navbar navbar-default">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <div class="container" >
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <%= image_tag("logo.png") %><p style="font-family:'Pacifico',cursive;font-size:28px;">Events Schedule</p></a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+
+          <li class="active">
+            <li><%= link_to "<button class=btn btn-success>Main Page</button>".html_safe,main_form_path%>
+            </li>
+            <li><%= link_to "<button class=btn btn-success ng-click=capture()>Log out</button>".html_safe,log_out_path%>
+            </li>
+            <dir id="user_nav">
+              <li><p style="font-size:18px"><b>logged in as</b></p><%= current_user.username%>
+              </li>
+
+            </ul>
+
+          </div>  
+        
+      </nav>
+      <%= form_for @event,url: event_create_path do |f| %>
+
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6" >
+            <dir id="user_nav">
+
+              <p>Name: <input type="text" ng-model="search1" placeholder="event name to be searched"></p>
+              <ul>
+                <li ng-repeat="item in list | filter:search1">{{item.name}}</li>
+              </ul>
+             
+              <div class="input-group">
+              <p>Name: 
+              <input type="text" ng-model="search" placeholder="event name to be searched" class="form-control input-lg"><i class="glyphicon glyphicon-search"></i></p><span class="input-group-btn">
+               <ul>
+                <li ng-repeat="item in event | filter:search">{{item.event}}</li>
+              </ul>
+             </span>
+              </div>
+            
+ 
+              <% @events.each do |event| %> 
+        
+           
+            <div class="row" style="background-color:#D3D3D3; margin:5px; padding:20px">
+              <label style="color:green">Event:</label><label> <%= event.event %></label><br>
+              <label style="color:green">Description: </label>
+              <label><%= event.description %></label>        
+            </br>  
+            <label style="color:green">Organizer: </label>
+            <label>
+
+             <% u=event.user_id %>
+             <%name=User.find_by_id(u) %>
+             <%= name.username %>
+
+           </label> </br>   
+           <%= link_to "<button class=btn btn-success>Edit</button>".html_safe, event_edit_path(@user,event) %>   
+
+           <%= link_to "<button class=btn btn-success>Distroy</button>".html_safe, event_destroy_path(@user,event) %></br></br>
+           <a  data-toggle="modal" data-target="#myModal2-<%=event.id%>"><button class=btn btn-success>Participants</a></button> <!-- Modal -->
+
+           <div class="modal fade" id="myModal2-<%=event.id%>" role="dialog">
+            <div class="modal-dialog">   <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">List of Participants        </h4>
+                </div>
+                <div class="modal-body">
+
+                  <%@participant=event.invitees%>
+                  <%@participant.each do |name|%>
+
+                  <p><%=name.username %></p>
+
+
+                  <%end%>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>    
+        <% end %>
+      </div>
+
+      <div class="col-sm-6">
+        <h2>Create event</h2>
+
+        <!-- Trigger the modal with a button -->
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Create New event</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+              </div>
+              <div class="modal-body">
+
+                <%= f.label :Enter_Event_name%>    <%= f.text_field :event %></br></br>
+                <%= f.label :Enter_Venue%>       <%= f.text_field :venue %></br></br>
+                <%= f.label :Enter_date%>       <%= f.text_field :date %></br></br>
+                <%= f.label :Enter_time %>           <%= f.text_field :time %></br></br>
+                <%= f.label :Enter_description%>    <%= f.text_area :description, size: "60x5" %></br></br>
+
+                <%= f.label :Select_invitee %> 
+                <ul>
+                  <% @users.each do |role| %>
+                  <% if current_user.id != role.id %>
+                  <li>
+                    <%= check_box_tag 'role_ids[]', role.id -%>
+                    <%= role.username -%>
+                  </li>
+                  <%end%>
+                  <% end %>
+                </ul>
+                <%= f.label :Enter_Status%>  
+                <%= f.select :status, ['open', 'closed']%></br></br></br>
+
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <%= f.submit :Submit,:class=>"btn" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <% end %>
+
+</div>
