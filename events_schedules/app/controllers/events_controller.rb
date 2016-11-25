@@ -5,6 +5,8 @@ class EventsController < ApplicationController
 		@event=Event.new
 		@users=User.all
 		@events=Event.all
+		# render :json => @events
+		# render :json => @eusers
 
 	end
 

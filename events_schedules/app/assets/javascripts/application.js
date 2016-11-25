@@ -13,20 +13,22 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require angular
 //= require_tree .
 //= require_bootstrap
-$(document).ready(function () {
-$("#foo").validate({
+angular.module('eventApp',[])
+	.controller('eventController',function($scope)
+	{
+		$scope.list=[
+			{name:'Sujina'},
+			{name:'Supreetha'},
+			{name:'Harshitha'},
+			{name:'Elvina'}
+		]
 
-rules: {
-"user[firstname]": {required: true, firstname: true},
-"user[lastname]": {required: true, lastname: true},
-"user[username]": {required: true, username: true},
-"user[phone]": {required: true, phone: true,maxlength: 10},
-"user[email]": {required: true, email: true},
-"user[password]": {required: true, minlength: 6},
-"user[password_confirmation]": {required: true, equalTo: "#customer_password"}
-// submitHandler: function(form) { form.submit();}
-}
-});
-});
+		
+		
+		$scope.capture = function(){
+			alert("Are you sure?")
+		}
+	});

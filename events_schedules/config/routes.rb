@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get 'user/new' => 'users#new', as: :user_new
 
-  post 'user/create' => 'users#create', as: :user_create
+  post 'user' => 'users#create', as: :user_create
   
   get 'user/form' => 'users#main_form', as: :main_form
 

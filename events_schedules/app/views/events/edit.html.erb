@@ -1,5 +1,29 @@
+<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+<nav class="navbar navbar-default">
+  <div class="container" >
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+          <%= image_tag("logo.png") %><p style="font-family:'Pacifico',cursive;font-size:28px;">Events Schedule</p></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <%if current_user==false%>
+     
+      <li class="active">
+      <li><%= link_to "<button class=btn btn-success>Log out</button>".html_safe,log_out_path%>
+      </li>
+      <dir id="user_nav">
+      <li><p style="font-size:18px"><b>logged in as</b></p><%= current_user.username%>
+      </li>
+     
+      
+    </ul>
+      <li><%= link_to "<button class=btn btn-success>Main Page</button>".html_safe,main_form_path%>
 
-
+       </ul>
+       <%end%>
+  </div>
+</nav>
+</br></br>
  <% if current_user.id == @inviter %>
 
 
@@ -33,7 +57,7 @@
      </br>
     <%= f.label :Select_invitee %> 
     <%= f.label :Enter_Status%>  
-    <%= f.select :status, ['open', 'closed'], :disabled => true%></br></br></br>
+    <%= f.select :status, :disabled => true%></br></br></br>
     
  <%= link_to "<button class=btn btn-success>Back</button>".html_safe,event_new_path(@user)%>
  <%end%>
